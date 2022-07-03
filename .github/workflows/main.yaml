@@ -66,5 +66,5 @@ jobs:
           kustomize edit set image gcr.io/PROJECT/BACKEND=gcr.io/$PROJECT_ID/$BACKEND_IMAGE:${GITHUB_REF#refs/heads/}-$GITHUB_SHA
           kustomize edit set image gcr.io/PROJECT/DAILY=gcr.io/$PROJECT_ID/$DAILY_IMAGE:${GITHUB_REF#refs/heads/}-$GITHUB_SHA
           kustomize build . | kubectl apply -f -
-          kubectl rollout status deployment $BACKEND_IMAGE -n todo-namespace
+          kubectl rollout status deployment ${BACKEND_IMAGE}-dep -n todo-namespace
           kubectl get services -o wide
