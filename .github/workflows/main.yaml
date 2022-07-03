@@ -21,7 +21,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Set up Cloud SDK
-        uses: google-github-actions/setup-gcloud@main
+        uses: google-github-actions/setup-gcloud@v0
         with:
           project_id: ${{ secrets.GKE_PROJECT }}
           service_account_key: ${{ secrets.GKE_SA_KEY }}
@@ -39,11 +39,13 @@ jobs:
         run: |-
           docker build \
             --tag "gcr.io/$PROJECT_ID/$BACKEND_IMAGE:${GITHUB_REF#refs/heads/}-$GITHUB_SHA" \
+            -f Containerfile \
             .
       - name: Build daily
         run: |-
           docker build \
             --tag "gcr.io/$PROJECT_ID/$DAILY_IMAGE:${GITHUB_REF#refs/heads/}-$GITHUB_SHA" \
+            -f Containerfile \
             daily-todo/.
       # Push the Docker image to Google Container Registry
       - name: Publish
