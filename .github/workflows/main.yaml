@@ -45,7 +45,7 @@ jobs:
         run: |-
           docker build \
             --tag "gcr.io/$PROJECT_ID/$DAILY_IMAGE:${GITHUB_REF#refs/heads/}-$GITHUB_SHA" \
-            -f Containerfile \
+            -f daily-todo/Containerfile \
             daily-todo/.
       # Push the Docker image to Google Container Registry
       - name: Publish
